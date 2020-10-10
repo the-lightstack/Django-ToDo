@@ -2,15 +2,63 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <a href="/todo">Home</a>
     <title>To-Do App</title>
-    
+    <style>
+      
+      .remove_x{
+        color:rgba(201, 8, 8, 0.74);
+        
+        clear:both
+      }
+      #lists_buttons{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        
+      }
+      h1{
+        color:seagreen;
+        
+      }
+      body{
+        background-color: #f8f8f8;;
+      }
+
+      a:link{
+        color: steelblue;
+      }
+      a{
+        text-decoration: none;
+      }
+      a:visited{
+        color:royalblue;
+      }
+      
+
+    </style>
   </head>
   <body>
     <h1>Editing Lists</h1>
     <ul>
     {% for l in lists %}
-        <li><a href="{{l.id_}}">{{l.name}}</a></li>
+        <div style="display: flex;">
+          <li><a style="font-size: 120%;margin-right: 130px;" href="{{l.id_}}">{{l.name}}</a></li>
+          <form id="lists_buttons" action="" method="POST">{% csrf_token%}
+            
+            <input  class="remove_x" type="submit" name="remove_list" value="X" >
+            <input type="hidden" name="to_remove_id" value="{{l.id_}}">
+          </form>
+        </div>
     {% endfor %}
     </ul>
+    <div>
+      <form action="" method="POST"> {% csrf_token %}
+        <label for="add_list">Add list:</label><br>
+        <input method="POST" type="text" name="add_list" maxlength="200">
+        <input type="submit" name="" value="submit" id="">
+      </form>
+
+    </div>
   </body>
 </html>
